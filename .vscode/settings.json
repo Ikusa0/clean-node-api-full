@@ -1,0 +1,14 @@
+{
+  "window.zoomLevel": 2,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "bounded",
+  "editor.guides.bracketPairs": "active",
+  "editor.detectIndentation": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "typescript",
+    "javascript"
+  ]
+}
