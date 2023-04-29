@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
-    "test:staged": "jest --passWithNoTests",
-    "prepare": "husky install && husky add .husky/pre-commit 'npx lint-staged' && husky add .husky/commit-msg '.git/hooks/commit-msg $1'"
+    "test": "jest --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --runInBand",
+    "test:unit": "npm test -- --watch -c jest-unit.config.js",
+    "test:integration": "npm test -- --watch -c jest-integration.config.js",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage",
+    "prepare": "husky install && husky add .husky/pre-commit 'npx lint-staged' && husky add .husky/commit-msg '.git/hooks/commit-msg $1' husky add .husky/pre-push 'npm run test:ci'"
   },
   "keywords": [],
   "author": "",
