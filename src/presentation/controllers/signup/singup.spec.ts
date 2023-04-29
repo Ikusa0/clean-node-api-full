@@ -14,12 +14,7 @@ const makeEmailValidator = (): EmailValidator => {
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     add (account: AddAccountModel): AccountModel {
-      const fakeAccount = {
-        id: 'valid_id',
-        name: 'valid_name',
-        email: 'valid_email@email.com',
-        password: 'valid_password'
-      }
+      const fakeAccount = { id: 'valid_id', ...account }
       return fakeAccount
     }
   }
@@ -203,5 +198,24 @@ describe('SingUp Controller', () => {
 
     sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith(expectedValues)
+  })
+
+  test('Should return 200 if valid data is provided', () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        name: 'Adoleta',
+        email: 'adoleta@mail.com',
+        password: 'adoleta123',
+        passwordConfirmation: 'adoleta123'
+      }
+    }
+
+    const { passwordConfirmation, ...accountInformation } = httpRequest.body
+
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({ id: 'valid_id', ...accountInformation })
   })
 })
