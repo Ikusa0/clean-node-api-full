@@ -1,4 +1,4 @@
-import { MongoClient, type MongoClientOptions } from 'mongodb'
+import { type Collection, MongoClient, type MongoClientOptions } from 'mongodb'
 
 const clientSymbol = Symbol('client')
 
@@ -12,5 +12,9 @@ export const MongoHelper = {
   async disconnect (): Promise<void> {
     await this[clientSymbol]?.close()
     this[clientSymbol] = null
+  },
+
+  getCollection (name: string): Collection | undefined {
+    return this[clientSymbol]!.db().collection(name)
   }
 }
