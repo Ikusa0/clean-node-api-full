@@ -20,6 +20,6 @@ export const MongoHelper = {
 
   map (document: any): any {
     const { _id, ...documentWithoutId } = document
-    return { id: _id, ...documentWithoutId }
+    return { id: _id.toString(), ...documentWithoutId }
   }
 }
